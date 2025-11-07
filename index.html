@@ -234,6 +234,26 @@ html
             overflow: hidden;
         }
 
+        /* Typing effect styles */
+        .typing-effect {
+            display: inline-block;
+            position: relative;
+        }
+
+        .typing-effect::after {
+            content: "|";
+            position: absolute;
+            right: -4px;
+            color: var(--primary);
+            animation: blink 0.7s infinite;
+            font-weight: 300;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
         .hero-content {
             max-width: 600px;
             z-index: 1;
@@ -755,6 +775,12 @@ html
         }
 
         /* Responsive Design */
+        @media (max-width: 1200px) {
+            .container {
+                width: 95%;
+            }
+        }
+
         @media (max-width: 992px) {
             .hero h1 {
                 font-size: 2.8rem;
@@ -763,14 +789,25 @@ html
             .about-content,
             .contact-content {
                 grid-template-columns: 1fr;
+                gap: 40px;
             }
             
             .hero-image {
                 display: none;
             }
             
+            .hero-content {
+                margin-left: 0;
+                max-width: 100%;
+            }
+            
             .footer-content {
                 grid-template-columns: 1fr 1fr;
+                gap: 30px;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             }
         }
 
@@ -791,10 +828,12 @@ html
                 justify-content: flex-start;
                 padding-top: 50px;
                 transition: var(--transition);
+                z-index: 999;
             }
             
             .nav-links.active {
                 left: 0;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             }
             
             .nav-links li {
@@ -824,7 +863,12 @@ html
             }
             
             .portfolio-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 20px;
+            }
+
+            .about-image img {
+                height: 300px;
             }
         }
 
@@ -839,6 +883,36 @@ html
             
             .contact-form {
                 padding: 30px 20px;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .about-text h3 {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -872,8 +946,8 @@ html
     <section class="hero" id="home">
         <div class="container">
             <div class="hero-content">
-                <h1>MD. Zuhayer Anjum <span>Soumik</span></h1>
-                <p>I'm a passionate Full Stack Developer & UI/UX Designer with 1+ years of experience creating digital solutions that drive results.</p>
+                <h1>MD. Zuhayer Anjum <span class="typing-effect">Soumik</span></h1>
+                <p class="typing-text"></p>
                 <div class="hero-btns">
                     <a href="#portfolio" class="btn">View My Work</a>
                     <a href="#contact" class="btn btn-outline">Contact Me</a>
@@ -1156,6 +1230,25 @@ html
                     });
                 }
             });
+        });
+
+        // Typing effect
+        const typingText = document.querySelector('.typing-text');
+        const text = "I'm a passionate Full Stack Developer & UI/UX Designer with 1+ years of experience creating digital solutions that drive results.";
+        let charIndex = 0;
+        let isTyping = true;
+
+        function typeText() {
+            if (charIndex < text.length && isTyping) {
+                typingText.textContent += text.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeText, 50); // Adjust typing speed here
+            }
+        }
+
+        // Start typing effect when the page loads
+        window.addEventListener('load', () => {
+            setTimeout(typeText, 1000); // Start after 1 second
         });
     </script>
 </body>
