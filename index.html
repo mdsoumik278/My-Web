@@ -16,6 +16,10 @@
             --light: #f8fafc;
             --gray: #64748b;
             --transition: all 0.3s ease;
+            /* light black overlay applied on top of the gradient highlight
+               (keeps the highlight colorful but slightly dimmed for contrast) */
+            --nav-overlay: rgba(0, 0, 0, 0.06);
+            --nav-overlay-hover: rgba(0, 0, 0, 0.10);
         }
 
         * {
@@ -188,6 +192,122 @@
             list-style: none;
         }
 
+        /* Highlighted nav effect (desktop) */
+        .nav-links {
+            position: relative;
+            --item-count: 5;
+            --nav-width: 520px; /* maximum nav width */
+            --item-width: calc(var(--nav-width) / var(--item-count));
+            width: min(var(--nav-width), 60%);
+            height: 50px;
+            padding: 6px;
+            border-radius: 10px;
+            background: transparent;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+        }
+
+        .nav-links a {
+            position: relative;
+            display: inline-block;
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 16px;
+            margin: 0;
+            width: var(--item-width);
+            text-align: center;
+            padding: 12px 0;
+            transition: color 220ms ease, transform 180ms ease;
+            z-index: 2; /* above the highlight */
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff; /* white text on the gradient highlight for best contrast */
+            transform: translateY(-3px);
+        }
+
+        .nav-links .nav-highlight {
+            position: absolute;
+            top: 6px;
+            left: 0;
+            width: var(--item-width);
+            height: calc(100% - 12px);
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 8px;
+            transition: left 260ms cubic-bezier(.2,.9,.2,1), transform 160ms ease;
+            z-index: 1;
+            box-shadow: 0 8px 24px rgba(51,255,252,0.08), inset 0 1px 0 rgba(255,255,255,0.04);
+            pointer-events: none;
+            transform: translateZ(0);
+            overflow: hidden; /* contain overlay pseudo-element */
+        }
+
+        /* Light black overlay above the gradient to create a subtle dimming effect */
+        .nav-links .nav-highlight::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--nav-overlay);
+            border-radius: 8px;
+            transition: background 220ms ease, opacity 220ms ease;
+            opacity: 1;
+            pointer-events: none;
+        }
+
+        /* Slightly stronger dim on hover to give feedback */
+        .nav-links a:hover ~ .nav-highlight::before {
+            background: var(--nav-overlay-hover);
+        }
+
+        /* Move the highlight based on which link is hovered */
+        .nav-links a:nth-child(1):hover ~ .nav-highlight{ left: calc(0 * var(--item-width)); }
+        .nav-links a:nth-child(2):hover ~ .nav-highlight{ left: calc(1 * var(--item-width)); }
+        .nav-links a:nth-child(3):hover ~ .nav-highlight{ left: calc(2 * var(--item-width)); }
+        .nav-links a:nth-child(4):hover ~ .nav-highlight{ left: calc(3 * var(--item-width)); }
+        .nav-links a:nth-child(5):hover ~ .nav-highlight{ left: calc(4 * var(--item-width)); }
+
+        /* Mobile: revert to stacked menu and hide highlight */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 50px;
+                transition: all 0.3s ease;
+                z-index: 999;
+            }
+
+            .nav-links a {
+                width: 100%;
+                padding: 14px 0;
+                text-align: center;
+            }
+
+            .nav-links .nav-highlight {
+                display: none;
+            }
+
+            .nav-links.active {
+                left: 0;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            }
+
+            /* On mobile, the highlight is hidden and links sit on a white background.
+               Keep hover color visible by using the primary color instead of white. */
+            .nav-links a:hover {
+                color: var(--primary);
+            }
+        }
+
         .nav-links li {
             margin-left: 30px;
         }
@@ -201,7 +321,8 @@
         }
 
         .nav-links a:hover {
-            color: var(--primary);
+            /* White text on hover for improved contrast over the gradient highlight. */
+            color: #ffffff;
         }
 
         .nav-links a::after {
@@ -942,13 +1063,14 @@
                     </div>
                     Zuhayer<span>.</span>
                 </a>
-                <ul class="nav-links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#portfolio">Portfolio</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
+                <nav class="nav-links" aria-label="Primary">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#services">Services</a>
+                    <a href="#portfolio">Portfolio</a>
+                    <a href="#contact">Contact</a>
+                    <span class="nav-highlight" aria-hidden="true"></span>
+                </nav>
                 <div class="hamburger">
                     <i class="fas fa-bars"></i>
                 </div>
