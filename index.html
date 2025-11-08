@@ -214,6 +214,7 @@
             color: var(--dark);
             text-decoration: none;
             font-size: 16px;
+            font-weight: 500;
             margin: 0;
             width: var(--item-width);
             text-align: center;
@@ -308,22 +309,8 @@
             }
         }
 
-        .nav-links li {
-            margin-left: 30px;
-        }
-
-        .nav-links a {
-            color: var(--dark);
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            /* White text on hover for improved contrast over the gradient highlight. */
-            color: #ffffff;
-        }
+        /* Removed unused .nav-links li and duplicate .nav-links a rules (anchors are direct children).
+           Anchor base styles are consolidated above. */
 
         .nav-links a::after {
             content: '';
@@ -1063,14 +1050,14 @@
                     </div>
                     Zuhayer<span>.</span>
                 </a>
-                <nav class="nav-links" aria-label="Primary">
+                <div class="nav-links" role="navigation" aria-label="Primary">
                     <a href="#home">Home</a>
                     <a href="#about">About</a>
                     <a href="#services">Services</a>
                     <a href="#portfolio">Portfolio</a>
                     <a href="#contact">Contact</a>
                     <span class="nav-highlight" aria-hidden="true"></span>
-                </nav>
+                </div>
                 <div class="hamburger">
                     <i class="fas fa-bars"></i>
                 </div>
