@@ -6,6 +6,7 @@
     <title>MD. Zuhayer Anjum Soumik | Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <style>
         :root {
             --primary: #2563eb;
@@ -415,10 +416,17 @@
 
         .about-image img {
             width: 100%;
-            height: 400px;
-            object-fit: cover;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            height: auto;
+            max-height: 500px;
+            object-fit: contain;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        
+        .about-image img:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
         }
 
         .about-text h3 {
@@ -518,21 +526,20 @@
 
         .portfolio-item {
             position: relative;
-            border-radius: 10px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            height: 250px;
-
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            height: 300px;
+            transform: translateY(0);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         .portfolio-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: var(--transition);
-
+            transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
-
 
         .portfolio-overlay {
             position: absolute;
@@ -540,46 +547,54 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(37, 99, 235, 0.9);
+            background: rgba(37, 99, 235, 0.95);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 30px;
             opacity: 0;
-            transition: var(--transition);
+            transform: translateY(10px);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            backdrop-filter: blur(5px);
+        }
 
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
         }
 
         .portfolio-item:hover .portfolio-overlay {
             opacity: 1;
-
+            transform: translateY(0);
         }
 
         .portfolio-item:hover img {
-            transform: scale(1.1);
-
+            transform: scale(1.1) rotate(2deg);
         }
 
         .portfolio-overlay h3 {
             color: rgb(255, 255, 255);
-            font-size: 1.5rem;
-            margin-bottom: 10px;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
             transform: translateY(20px);
-            transition: all 0.4s ease;
+            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            opacity: 0;
         }
 
         .portfolio-overlay p {
-            color: rgba(255, 251, 251, 0.8);
+            color: rgba(255, 255, 255, 0.95);
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             transform: translateY(20px);
-            transition: all 0.4s ease 0.1s;
+            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) 0.1s;
+            opacity: 0;
         }
         
         .portfolio-item:hover .portfolio-overlay h3,
         .portfolio-item:hover .portfolio-overlay p {
             transform: translateY(0);
+            opacity: 1;
             color: #ffffff;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
@@ -944,17 +959,17 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container">
-            <div class="hero-content">
-                <h1>MD. Zuhayer Anjum <span class="typing-effect">Soumik</span></h1>
-                <p class="typing-text"></p>
-                <div class="hero-btns">
+            <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+                <h1 data-aos="fade-right" data-aos-delay="200">MD. Zuhayer Anjum <span class="typing-effect">Soumik</span></h1>
+                <p class="typing-text" data-aos="fade-right" data-aos-delay="400"></p>
+                <div class="hero-btns" data-aos="fade-up" data-aos-delay="600">
                     <a href="#portfolio" class="btn">View My Work</a>
                     <a href="#contact" class="btn btn-outline">Contact Me</a>
                 </div>
             </div>
-            <div class="hero-image">
+            <div class="hero-image" data-aos="zoom-in" data-aos-delay="200">
                 <!-- <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="MD. Zuhayer Anjum Soumik"> -->
-                <img src="IMG-2.jpeg" alt="MD. Zuhayer Anjum Soumik">
+                <img src="IMG-1.jpg" alt="MD. Zuhayer Anjum Soumik">
             </div>
         </div>
     </section>
@@ -966,11 +981,11 @@
                 <h2>About Me</h2>
             </div>
             <div class="about-content">
-                <div class="about-image">
+                <div class="about-image" data-aos="fade-right" data-aos-duration="1000">
                     <!-- <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=761&q=80" alt="About MD. Zuhayer Anjum Soumik">-->
-                    <img src="IMG-1.jpg" alt="MD. Zuhayer Anjum Soumik">
+                    <img src="IMG-4.png" alt="MD. Zuhayer Anjum Soumik">
                 </div>
-                <div class="about-text">
+                <div class="about-text" data-aos="fade-left" data-aos-duration="1000">
                     <h3>Hello! I'm Zuhayer, a Professional Web Developer</h3>
                     <p>I specialize in creating exceptional digital experiences that are fast, accessible, visually appealing, and responsive. My passion lies in solving complex problems with elegant solutions.</p>
                     <p>With over 5 years of experience in the industry, I've had the privilege of working with startups, agencies, and corporations to help them achieve their digital goals.</p>
@@ -1016,21 +1031,21 @@
                 <h2>My Services</h2>
             </div>
             <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
+                <div class="service-card" data-aos="flip-left" data-aos-duration="1000" data-aos-delay="100">
+                    <div class="service-icon" data-aos="zoom-in" data-aos-delay="300">
                         <i class="fas fa-code"></i>
                     </div>
                     <h3>Web Development</h3>
                     <p>Custom website development using modern technologies like React, Vue, Node.js, and more to create fast, scalable web applications.</p>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">
+                <div class="service-card" data-aos="flip-left" data-aos-duration="1000" data-aos-delay="300">
+                    <div class="service-icon" data-aos="zoom-in" data-aos-delay="500">
                         <i class="fas fa-palette"></i>
                     </div>
                     <h3>UI/UX Design</h3>
                     <p>User-centered design approach creating intuitive interfaces that enhance user experience and drive engagement.</p>
                 </div>
-                <div class="service-card">
+                <div class="service-card" data-aos="flip-left" data-aos-duration="1000" data-aos-delay="500">
                     <div class="service-icon">
                         <i class="fas fa-mobile-alt"></i>
                     </div>
@@ -1048,7 +1063,7 @@
                 <h2>My Portfolio</h2>
             </div>
             <div class="portfolio-grid">
-                <div class="portfolio-item">
+                <div class="portfolio-item" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
                     <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="E-commerce Website">
                     <div class="portfolio-overlay">
                         <h3>E-commerce Platform</h3>
@@ -1056,7 +1071,7 @@
                         <a href="#" class="btn btn-outline">View Details</a>
                     </div>
                 </div>
-                <div class="portfolio-item">
+                <div class="portfolio-item" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
                     <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1115&q=80" alt="Finance Dashboard">
                     <div class="portfolio-overlay">
                         <h3>Finance Dashboard</h3>
@@ -1064,7 +1079,7 @@
                         <a href="#" class="btn btn-outline">View Details</a>
                     </div>
                 </div>
-                <div class="portfolio-item">
+                <div class="portfolio-item" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
                     <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1036&q=80" alt="Travel App">
                     <div class="portfolio-overlay">
                         <h3>Travel Mobile App</h3>
@@ -1084,7 +1099,7 @@
             </div>
             <div class="contact-content">
                 <div class="contact-info">
-                    <div class="contact-item">
+                    <div class="contact-item" data-aos="fade-right" data-aos-delay="200">
                         <div class="contact-icon">
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
@@ -1185,7 +1200,19 @@
         </div>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
+        // Initialize AOS with optimized settings
+        AOS.init({
+            duration: 800,
+            offset: 50,
+            once: true,
+            easing: 'ease-out-cubic',
+            delay: 100,
+            mirror: false,
+            anchorPlacement: 'top-bottom'
+        });
+        
         // Header scroll effect
         window.addEventListener('scroll', function() {
             const header = document.getElementById('header');
