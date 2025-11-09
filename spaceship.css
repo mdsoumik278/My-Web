@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+    padding: 0;
+    /* keep horizontal overflow hidden but allow vertical scroll on mobile */
+    overflow-x: hidden;
+    /* keep the default cursor visible. If you prefer a custom cursor, set `cursor: none;` here. */
+}
+
+.spaceship {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0;
+    /* translate(-50%,-50%) keeps the element centered at left/top coordinates
+       rotate is updated dynamically in JS */
+    transform: translate(-50%, -50%) rotate(45deg);
+    transition: opacity 0.25s ease, left 0.08s linear, top 0.08s linear, transform 0.12s linear;
+    background: linear-gradient(45deg, #4a90e2, #87ceeb);
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    box-shadow: 0 0 15px rgba(74, 144, 226, 0.5);
+}
+
+/* Show spaceship when hovering over any element */
+body:hover .spaceship {
+    opacity: 1;
+}

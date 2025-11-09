@@ -2,10 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MD. Zuhayer Anjum Soumik | Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="spaceship.css">
     <style>
         :root {
             --primary: #2563eb;
@@ -492,6 +494,63 @@
             animation: float 3s ease-in-out infinite;
         }
 
+        /* Make all images responsive by default */
+        img { max-width: 100%; height: auto; display: block; }
+
+        /* Custom Cursor Styles */
+        .cursor {
+            width: 16px;
+            height: 16px;
+            background: var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            top: -8px;
+            left: -8px;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s;
+        }
+
+        .cursor-follower {
+            width: 56px;
+            height: 56px;
+            background: rgba(37, 99, 235, 0.2);
+            border: 1px solid var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            top: -28px;
+            left: -28px;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.15s;
+        }
+
+        .cursor.cursor-hover {
+            transform: scale(1.5);
+            background: var(--secondary);
+        }
+
+        .cursor-follower.cursor-hover {
+            transform: scale(2);
+            background: rgba(126, 34, 206, 0.1);
+            border-color: var(--secondary);
+        }
+
+        /* Hide default cursor when custom cursor is active */
+        body {
+            cursor: none;
+        }
+
+        /* Show default cursor for touch devices */
+        @media (hover: none) {
+            .cursor, .cursor-follower {
+                display: none;
+            }
+            body {
+                cursor: auto;
+            }
+        }
+
         .hero-image img:hover {
             transform: scale(1.05) rotate(2deg);
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
@@ -921,6 +980,8 @@
             .container {
                 width: 95%;
             }
+            /* prevent hero-content from shifting off-screen on medium viewports */
+            .hero-content { margin-left: 0; }
         }
 
         @media (max-width: 992px) {
@@ -1631,5 +1692,6 @@
             requestAnimationFrame(loop);
         })();
         </script>
+        <script src="spaceship.js"></script>
 </body>
 </html>
