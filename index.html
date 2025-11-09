@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MD. Zuhayer Anjum Soumik | Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -12,9 +11,10 @@
             --primary: #2563eb;
             --primary-dark: #1d4ed8;
             --secondary: #7e22ce;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --gray: #64748b;
+            /* Swap light/dark vars for dark-theme background */
+            --dark: #e6eef8; /* primary text color (light) */
+            --light: #071428; /* background/section-contrasts */
+            --gray: #b8cedf; /* muted text for descriptions */
             --transition: all 0.3s ease;
             /* light black overlay applied on top of the gradient highlight
                (keeps the highlight colorful but slightly dimmed for contrast) */
@@ -35,9 +35,22 @@
         body {
             font-family: 'Poppins', sans-serif;
             line-height: 1.6;
-            color: var(--dark);
-            background-color: var(--light);
+            color: #e6eef8; /* light text for contrast over the dark rain background */
+            /* rain background (full-page) */
+            background: linear-gradient(to bottom, #0a192f, #1a3a5f);
             overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Star canvas (full-page) */
+        #star-canvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0; /* behind header (header z-index is 1000) */
+            pointer-events: none; /* don't block interaction */
+            display: block;
         }
 
         h1, h2, h3, h4, h5 {
@@ -120,14 +133,15 @@
             left: 0;
             width: 100%;
             z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            /* Dark translucent header to match the rain background */
+            background: rgba(10, 25, 47, 0.75);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
             transition: var(--transition);
         }
 
         header.scrolled {
             padding: 10px 0;
-            background: rgba(255, 255, 255, 0.98);
+            background: rgba(10, 25, 47, 0.88);
         }
 
         .navbar {
@@ -278,7 +292,7 @@
                 left: -100%;
                 width: 100%;
                 height: calc(100vh - 80px);
-                background: white;
+                background: rgba(10,25,47,0.95);
                 flex-direction: column;
                 align-items: center;
                 justify-content: flex-start;
@@ -497,7 +511,8 @@
   
         /* About Section */
         .about {
-            background: white;
+            /* subtle dark card so text is readable on dark page */
+            background: rgba(255,255,255,0.03);
             position: relative;
             overflow: hidden;
         }
@@ -563,7 +578,7 @@
 
         .skill-bar {
             height: 8px;
-            background: #e2e8f0;
+            background: rgba(255,255,255,0.06);
             border-radius: 4px;
             overflow: hidden;
         }
@@ -576,7 +591,7 @@
 
         /* Services Section */
         .services {
-            background: #f1f5f9;
+            background: rgba(255,255,255,0.02);
         }
 
         .services-grid {
@@ -586,12 +601,13 @@
         }
 
         .service-card {
-            background: white;
+            background: rgba(255,255,255,0.04);
             padding: 40px 30px;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 6px 22px rgba(0, 0, 0, 0.35);
             transition: var(--transition);
             text-align: center;
+            color: var(--dark);
         }
 
         .service-card:hover {
@@ -719,7 +735,7 @@
 
         /* Contact Section */
         .contact {
-            background: #f1f5f9;
+            background: rgba(255,255,255,0.02);
         }
 
         .contact-content {
@@ -766,10 +782,11 @@
         }
 
         .contact-form {
-            background: white;
+            background: rgba(255,255,255,0.04);
             padding: 40px;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            color: var(--dark);
         }
 
         .form-group {
@@ -779,7 +796,9 @@
         .form-control {
             width: 100%;
             padding: 12px 15px;
-            border: 1px solid #e2e8f0;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(0,0,0,0.18);
+            color: var(--dark);
             border-radius: 5px;
             font-family: 'Poppins', sans-serif;
             font-size: 1rem;
@@ -799,7 +818,8 @@
 
         /* Footer */
         footer {
-            background: var(--dark);
+            /* use the dark page color for footer background */
+            background: var(--light);
             color: white;
             padding: 60px 0 30px;
         }
@@ -944,7 +964,7 @@
                 left: -100%;
                 width: 100%;
                 height: calc(100vh - 80px);
-                background: white;
+                background: rgba(10,25,47,0.95);
                 flex-direction: column;
                 align-items: center;
                 justify-content: flex-start;
@@ -1040,7 +1060,8 @@
     </style>
 </head>
 <body>
-  <!-- Header & Navigation -->
+    <canvas id="star-canvas" aria-hidden="true"></canvas>
+    <!-- Header & Navigation -->
     <header id="header">
         <div class="container">
             <nav class="navbar">
@@ -1384,5 +1405,231 @@
             setTimeout(typeText, 1000); // Start after 1 second
         });
     </script>
+        <!-- Broken star + star-born effect script -->
+        <script>
+        (function(){
+            const canvas = document.getElementById('star-canvas');
+            if(!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            let w = 0, h = 0, dpr = window.devicePixelRatio || 1;
+            const STARS = 160;
+            const stars = [];
+            const particles = [];
+            const birthLocks = new Set();
+
+            function resize(){
+                dpr = window.devicePixelRatio || 1;
+                w = window.innerWidth;
+                h = window.innerHeight;
+                canvas.style.width = w + 'px';
+                canvas.style.height = h + 'px';
+                canvas.width = Math.floor(w * dpr);
+                canvas.height = Math.floor(h * dpr);
+                ctx.setTransform(dpr,0,0,dpr,0,0);
+            }
+
+            class Star {
+                constructor(){
+                    this.reset(true);
+                }
+                reset(initial){
+                    this.x = Math.random()*w;
+                    this.y = Math.random()*h;
+                    this.r = 0.6 + Math.random()*1.8;
+                    this.targetR = this.r;
+                    this.drawR = this.r; // used for born animation
+                    this.baseAlpha = 0.4 + Math.random()*0.6;
+                    this.alpha = this.baseAlpha;
+                    this.twinkleSpeed = 0.002 + Math.random()*0.008;
+                    this.phase = Math.random()*Math.PI*2;
+                    this.breaking = false;
+                    this.born = false;
+                    this.bornProgress = 1; // 1 = fully born
+                    this.bornDuration = 400 + Math.random()*600;
+                    if(!initial && Math.random()<0.02) this.break();
+                }
+                // initialize a newborn star at x,y
+                spawnAt(x,y){
+                    this.x = x; this.y = y;
+                    this.targetR = 0.8 + Math.random()*1.8;
+                    this.drawR = 0;
+                    this.baseAlpha = 0.6 + Math.random()*0.4;
+                    this.alpha = 0;
+                    this.twinkleSpeed = 0.003 + Math.random()*0.006;
+                    this.phase = Math.random()*Math.PI*2;
+                    this.born = true;
+                    this.bornProgress = 0;
+                    this.bornDuration = 350 + Math.random()*650;
+                    this.breaking = false;
+                }
+                update(dt){
+                    // dt in ms
+                    this.phase += this.twinkleSpeed * dt;
+                    this.alpha = this.baseAlpha + Math.sin(this.phase)*0.3;
+                    if(this.born){
+                        this.bornProgress += dt / this.bornDuration;
+                        if(this.bornProgress >= 1){ this.bornProgress = 1; this.born = false; this.drawR = this.targetR; }
+                        else this.drawR = this.targetR * easeOutCubic(this.bornProgress);
+                    } else {
+                        this.drawR = this.targetR;
+                    }
+                }
+                draw(){
+                    ctx.beginPath();
+                    ctx.fillStyle = 'rgba(255,255,255,'+Math.max(0,Math.min(1,this.alpha))+')';
+                    ctx.arc(this.x, this.y, Math.max(0.2, this.drawR), 0, Math.PI*2);
+                    ctx.fill();
+                }
+                break(){
+                    if(this.breaking) return;
+                    this.breaking = true;
+                    const count = 12 + Math.floor(Math.random()*12);
+                    for(let i=0;i<count;i++){
+                        const angle = Math.random()*Math.PI*2;
+                        const speed = 0.8 + Math.random()*2.4;
+                        particles.push(new Particle(this.x, this.y, Math.cos(angle)*speed, Math.sin(angle)*speed, this.drawR, 'explode'));
+                    }
+                    // fade out star and respawn later
+                    setTimeout(()=>{
+                        this.reset(false);
+                        this.breaking = false;
+                    }, 800 + Math.random()*1200);
+                }
+            }
+
+            class Particle {
+                // mode: 'explode' (default) or 'converge'
+                constructor(x,y,vx,vy,baseR,mode='explode', tx=0, ty=0){
+                    this.x = x; this.y = y; this.vx = vx; this.vy = vy; this.life = 1;
+                    this.mode = mode;
+                    this.tx = tx; this.ty = ty;
+                    this.decay = 0.018 + Math.random()*0.02;
+                    this.r = Math.max(0.4, baseR*0.8*Math.random());
+                    this.hue = 200 + Math.random()*40;
+                    if(this.mode === 'converge'){
+                        // small inward velocity toward target
+                        const dx = this.tx - this.x, dy = this.ty - this.y;
+                        this.vx = (dx) * (0.02 + Math.random()*0.04);
+                        this.vy = (dy) * (0.02 + Math.random()*0.04) - (0.01 + Math.random()*0.02);
+                        this.decay = 0.025 + Math.random()*0.03;
+                    }
+                }
+                update(){
+                    if(this.mode === 'converge'){
+                        // attraction towards target
+                        const dx = this.tx - this.x, dy = this.ty - this.y;
+                        const dist = Math.sqrt(dx*dx + dy*dy) + 0.0001;
+                        // accelerate toward target (smoothed)
+                        const acc = 0.06 + Math.random()*0.06;
+                        this.vx += (dx/dist) * acc;
+                        this.vy += (dy/dist) * acc;
+                        // integrate
+                        this.x += this.vx;
+                        this.y += this.vy;
+                        this.vx *= 0.98;
+                        this.vy *= 0.98;
+                        this.life -= this.decay;
+                        // when particle is very close, attempt to create a new star
+                        const key = Math.round(this.tx) + ':' + Math.round(this.ty);
+                        if((Math.abs(dx) < 6 && Math.abs(dy) < 6) || this.life <= 0){
+                            if(!birthLocks.has(key)){
+                                birthLocks.add(key);
+                                // create a newborn star
+                                const s = new Star();
+                                s.spawnAt(this.tx, this.ty);
+                                // keep star count limited
+                                stars.push(s);
+                                if(stars.length > STARS) stars.splice(0, stars.length - STARS);
+                                // release lock shortly after
+                                setTimeout(()=> birthLocks.delete(key), 800);
+                            }
+                            return false; // remove this converge particle
+                        }
+                        return true;
+                    }
+                    // explode mode (existing behavior)
+                    this.vy += 0.02; // gravity
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    this.vx *= 0.99;
+                    this.vy *= 0.99;
+                    this.life -= this.decay;
+                    return this.life>0 && this.y < h + 50;
+                }
+                draw(){
+                    ctx.beginPath();
+                    ctx.fillStyle = 'rgba(255,255,255,'+Math.max(0,Math.min(1,this.life))+')';
+                    ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
+                    ctx.fill();
+                }
+            }
+
+            function easeOutCubic(t){ return 1 - Math.pow(1-t, 3); }
+
+            function spawnBirth(x,y,count=18){
+                // create converging particles placed around a ring
+                for(let i=0;i<count;i++){
+                    const angle = (i/count) * Math.PI*2 + (Math.random()*0.6 - 0.3);
+                    const radius = 40 + Math.random()*120;
+                    const sx = x + Math.cos(angle)*radius + (Math.random()*20-10);
+                    const sy = y + Math.sin(angle)*radius + (Math.random()*20-10);
+                    // initial small velocity roughly toward center
+                    particles.push(new Particle(sx, sy, 0, 0, 1.2, 'converge', x, y));
+                }
+            }
+
+            function init(){
+                resize();
+                stars.length = 0;
+                for(let i=0;i<STARS;i++) stars.push(new Star());
+            }
+
+            let last = performance.now();
+            function loop(now){
+                const dt = now - last;
+                last = now;
+                ctx.clearRect(0,0,w,h);
+
+                // random broken-star triggers
+                if(Math.random() < 0.012) {
+                    const s = stars[Math.floor(Math.random()*stars.length)];
+                    if(s) s.break();
+                }
+
+                // occasional star birth (subtle)
+                if(Math.random() < 0.003){
+                    const bx = 40 + Math.random()*(w-80);
+                    const by = 40 + Math.random()*(h-120);
+                    spawnBirth(bx, by, 14 + Math.floor(Math.random()*10));
+                }
+
+                stars.forEach(s => { s.update(dt); s.draw(); });
+
+                for(let i = particles.length-1; i>=0; i--){
+                    const p = particles[i];
+                    if(p.update()) p.draw(); else particles.splice(i,1);
+                }
+
+                requestAnimationFrame(loop);
+            }
+
+            window.addEventListener('resize', ()=>{ init(); });
+            // keyboard triggers: 'b' for break, 'n' for new birth
+            window.addEventListener('keydown', (e)=>{
+                if(e.key==='b' || e.key==='B'){
+                    const s = stars[Math.floor(Math.random()*stars.length)]; if(s) s.break();
+                }
+                if(e.key==='n' || e.key==='N'){
+                    const bx = 60 + Math.random()*(w-120);
+                    const by = 60 + Math.random()*(h-160);
+                    spawnBirth(bx, by, 20);
+                }
+            });
+
+            init();
+            requestAnimationFrame(loop);
+        })();
+        </script>
 </body>
 </html>
